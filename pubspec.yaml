@@ -1,6 +1,6 @@
 name: kurdish_number_converter
 description: A Flutter package to convert numbers into Kurdish Sorani words for localization.
-version: 1.0.0
+version: 1.0.1
 homepage: https://github.com/DilanGhareeb/kurdish_number_converter
 repository: https://github.com/DilanGhareeb/kurdish_number_converter
 issue_tracker: https://github.com/DilanGhareeb/kurdish_number_converter/issues
