@@ -1,5 +1,3 @@
-## 1.0.1
+## 1.0.2
 
-- Minor improvements
-- Added documentation comments for public API
-- Fixed pubspec description and LICENSE issues
+- Updating the README.md file.
