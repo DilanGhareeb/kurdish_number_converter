@@ -12,6 +12,18 @@ class SoraniNumberConverter {
     9: 'نۆ',
   };
 
+  static const Map<int, String> _teens = {
+    11: 'یازدە',
+    12: 'دوازدە',
+    13: 'سێزدە',
+    14: 'چواردە',
+    15: 'پازدە',
+    16: 'شازدە',
+    17: 'حەڤدە',
+    18: 'هەژدە',
+    19: 'نۆزدە',
+  };
+
   static const Map<int, String> _tens = {
     10: 'دە',
     20: 'بیست',
@@ -40,14 +52,16 @@ class SoraniNumberConverter {
     1000: 'هەزار',
     1000000: 'ملیۆن',
     1000000000: 'ملیار',
+    1000000000000: 'تریلیۆن',
   };
 
   static String convert(int number) {
     if (number < 0) {
-      return 'نێگەتیڤ ${convert(-number)}';
+      return 'سالب ${convert(-number)}';
     }
 
     if (number < 10) return _units[number]!;
+    if (_teens.containsKey(number)) return _teens[number]!;
     if (number < 100) return _convertTens(number);
     if (number < 1000) return _convertHundreds(number);
 
@@ -59,21 +73,33 @@ class SoraniNumberConverter {
       return _convertLargeNumber(number, 1000000, _thousands[1000000]!);
     }
 
-    return _convertLargeNumber(number, 1000000000, _thousands[1000000000]!);
+    if (number < 1000000000000) {
+      return _convertLargeNumber(number, 1000000000, _thousands[1000000000]!);
+    }
+
+    return _convertLargeNumber(
+      number,
+      1000000000000,
+      _thousands[1000000000000]!,
+    );
   }
 
   static String _convertTens(int number) {
     if (_tens.containsKey(number)) {
       return _tens[number]!;
     }
-    return '${_tens[(number ~/ 10) * 10]!} و ${_units[number % 10]!}';
+    final tensPart = (number ~/ 10) * 10;
+    final unitPart = number % 10;
+    return '${_tens[tensPart]!} و ${_units[unitPart]!}';
   }
 
   static String _convertHundreds(int number) {
     if (_hundreds.containsKey(number)) {
       return _hundreds[number]!;
     }
-    return '${_hundreds[(number ~/ 100) * 100]!} و ${convert(number % 100)}';
+    final hundredsPart = (number ~/ 100) * 100;
+    final remainder = number % 100;
+    return '${_hundreds[hundredsPart]!} و ${convert(remainder)}';
   }
 
   static String _convertLargeNumber(
@@ -81,13 +107,20 @@ class SoraniNumberConverter {
     int divisor,
     String denomination,
   ) {
-    int wholePart = number ~/ divisor;
-    int remainder = number % divisor;
+    final wholePart = number ~/ divisor;
+    final remainder = number % divisor;
 
     String result = '${convert(wholePart)} $denomination';
     if (remainder > 0) {
       result = '$result و ${convert(remainder)}';
     }
     return result;
+  }
+
+  // Helper method to convert numbers with proper spacing and conjunctions
+  static String _joinParts(String part1, String part2) {
+    if (part1.isEmpty) return part2;
+    if (part2.isEmpty) return part1;
+    return '$part1 و $part2';
   }
 }
