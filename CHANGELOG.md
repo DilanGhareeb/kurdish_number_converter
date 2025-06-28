@@ -1,3 +1,5 @@
-## 0.0.1
+## 1.0.0
 
-* TODO: Describe initial release.
+- Initial release of Kurdish Number Converter
+- Converts integers to Kurdish Sorani number words
+- Supports string and integer input
