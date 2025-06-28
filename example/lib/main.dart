@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sorani_number_words/sorani_number_words.dart';
+import 'package:kurdish_sorani_number_converter/src/kurdish_nu.dart';
 
 void main() => runApp(const MyApp());
 
@@ -16,9 +16,9 @@ class MyApp extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('123: ${SoraniNumberConverter.convert(123)}'),
-              Text('4567: ${SoraniNumberConverter.convert(4567)}'),
-              Text('89123: ${SoraniNumberConverter.convert(89123)}'),
+              Text('123: ${KurdishSoraniNumberConverter.convert(123)}'),
+              Text('4567: ${KurdishSoraniNumberConverter.convert(4567)}'),
+              Text('89123: ${KurdishSoraniNumberConverter.convert(89123)}'),
             ],
           ),
         ),

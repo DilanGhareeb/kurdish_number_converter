@@ -1,6 +1,6 @@
-name: sorani_number_words
-description: "A package to convert numbers to Kurdish Sorani words."
-version: 0.0.1
+name: kurdish_sorani_number_converter
+description: A complete number-to-words converter for Kurdish Sorani (Central Kurdish) language. Converts numbers up to 9 quintillion (9,223,372,036,854,775,807) with proper Sorani grammar and formatting.
+version: 1.0.0
 homepage:
 
 environment:

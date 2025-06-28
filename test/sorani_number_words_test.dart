@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:sorani_number_words/sorani_number_words.dart';
+import 'package:kurdish_sorani_number_converter/src/kurdish_nu.dart';
 
 void main() {
-  group('SoraniNumberConverter', () {
+  group('KurdishSoraniNumberConverter', () {
     group('Basic numbers (0-9)', () {
       final testCases = {
         0: 'سفر',
@@ -19,7 +19,7 @@ void main() {
 
       testCases.forEach((number, expected) {
         test('$number → "$expected"', () {
-          expect(SoraniNumberConverter.convert(number), expected);
+          expect(KurdishSoraniNumberConverter.convert(number), expected);
         });
       });
     });
@@ -39,7 +39,7 @@ void main() {
 
       testCases.forEach((number, expected) {
         test('$number → "$expected"', () {
-          expect(SoraniNumberConverter.convert(number), expected);
+          expect(KurdishSoraniNumberConverter.convert(number), expected);
         });
       });
     });
@@ -131,7 +131,7 @@ void main() {
 
       testCases.forEach((number, expected) {
         test('$number → "$expected"', () {
-          expect(SoraniNumberConverter.convert(number), expected);
+          expect(KurdishSoraniNumberConverter.convert(number), expected);
         });
       });
     });
@@ -201,7 +201,7 @@ void main() {
 
       testCases.forEach((number, expected) {
         test('$number → "$expected"', () {
-          expect(SoraniNumberConverter.convert(number), expected);
+          expect(KurdishSoraniNumberConverter.convert(number), expected);
         });
       });
     });
@@ -279,7 +279,7 @@ void main() {
 
       testCases.forEach((number, expected) {
         test('$number → "$expected"', () {
-          expect(SoraniNumberConverter.convert(number), expected);
+          expect(KurdishSoraniNumberConverter.convert(number), expected);
         });
       });
     });
@@ -326,7 +326,7 @@ void main() {
 
       testCases.forEach((number, expected) {
         test('$number → "$expected"', () {
-          expect(SoraniNumberConverter.convert(number), expected);
+          expect(KurdishSoraniNumberConverter.convert(number), expected);
         });
       });
     });
@@ -377,28 +377,28 @@ void main() {
 
       testCases.forEach((number, expected) {
         test('$number → "$expected"', () {
-          expect(SoraniNumberConverter.convert(number), expected);
+          expect(KurdishSoraniNumberConverter.convert(number), expected);
         });
       });
     });
 
     group('Trillions and beyond', () {
       final testCases = {
-        1000000000000: 'یەک تریلیۆن',
-        1000000000001: 'یەک تریلیۆن و یەک',
+        1000000000000: 'یەک ترلیۆن',
+        1000000000001: 'یەک ترلیۆن و یەک',
         1234567890123:
-            'یەک تریلیۆن و دووسەد و سی و چوار ملیار و پێنسەد و شەست و حەوت ملیۆن و هەشتسەد و نەوەد هەزار و سەد و بیست و سێ',
-        2000000000000: 'دوو تریلیۆن',
-        5000000000000: 'پێنج تریلیۆن',
+            'یەک ترلیۆن و دووسەد و سی و چوار ملیار و پێنسەد و شەست و حەوت ملیۆن و هەشتسەد و نەوەد هەزار و سەد و بیست و سێ',
+        2000000000000: 'دوو ترلیۆن',
+        5000000000000: 'پێنج ترلیۆن',
         9999999999999:
-            'نۆ تریلیۆن و نۆسەد و نەوەد و نۆ ملیار و نۆسەد و نەوەد و نۆ ملیۆن و نۆسەد و نەوەد و نۆ هەزار و نۆسەد و نەوەد و نۆ',
-        1000000000000000: 'یەک کوادریلیۆن',
+            'نۆ ترلیۆن و نۆسەد و نەوەد و نۆ ملیار و نۆسەد و نەوەد و نۆ ملیۆن و نۆسەد و نەوەد و نۆ هەزار و نۆسەد و نەوەد و نۆ',
+        1000000000000000: 'یەک کوادرلیۆن',
         1000000000000000000: 'یەک کوینتیلیۆن',
       };
 
       testCases.forEach((number, expected) {
         test('$number → "$expected"', () {
-          expect(SoraniNumberConverter.convert(number), expected);
+          expect(KurdishSoraniNumberConverter.convert(number), expected);
         });
       });
     });
@@ -445,310 +445,394 @@ void main() {
         -1000000000: 'سالب یەک ملیار',
         -2147483647:
             'سالب دوو ملیار و سەد و چل و حەوت ملیۆن و چوارسەد و هەشتا و سێ هەزار و شەشسەد و چل و حەوت',
-        -1000000000000: 'سالب یەک تریلیۆن',
+        -1000000000000: 'سالب یەک ترلیۆن',
       };
 
       testCases.forEach((number, expected) {
         test('$number → "$expected"', () {
-          expect(SoraniNumberConverter.convert(number), expected);
+          expect(KurdishSoraniNumberConverter.convert(number), expected);
         });
       });
     });
 
     group('Edge cases and boundary values', () {
       test('Zero variations', () {
-        expect(SoraniNumberConverter.convert(0), 'سفر');
+        expect(KurdishSoraniNumberConverter.convert(0), 'سفر');
       });
 
       test('Single digit variations', () {
         for (int i = 0; i <= 9; i++) {
-          expect(SoraniNumberConverter.convert(i), isNotEmpty);
+          expect(KurdishSoraniNumberConverter.convert(i), isNotEmpty);
         }
       });
 
       test('Boundary between tens and hundreds', () {
-        expect(SoraniNumberConverter.convert(99), 'نەوەد و نۆ');
-        expect(SoraniNumberConverter.convert(100), 'سەد');
-        expect(SoraniNumberConverter.convert(101), 'سەد و یەک');
+        expect(KurdishSoraniNumberConverter.convert(99), 'نەوەد و نۆ');
+        expect(KurdishSoraniNumberConverter.convert(100), 'سەد');
+        expect(KurdishSoraniNumberConverter.convert(101), 'سەد و یەک');
       });
 
       test('Boundary between hundreds and thousands', () {
-        expect(SoraniNumberConverter.convert(999), 'نۆسەد و نەوەد و نۆ');
-        expect(SoraniNumberConverter.convert(1000), 'یەک هەزار');
-        expect(SoraniNumberConverter.convert(1001), 'یەک هەزار و یەک');
+        expect(KurdishSoraniNumberConverter.convert(999), 'نۆسەد و نەوەد و نۆ');
+        expect(KurdishSoraniNumberConverter.convert(1000), 'یەک هەزار');
+        expect(KurdishSoraniNumberConverter.convert(1001), 'یەک هەزار و یەک');
       });
 
       test('Boundary between thousands and millions', () {
         expect(
-          SoraniNumberConverter.convert(999999),
+          KurdishSoraniNumberConverter.convert(999999),
           'نۆسەد و نەوەد و نۆ هەزار و نۆسەد و نەوەد و نۆ',
         );
-        expect(SoraniNumberConverter.convert(1000000), 'یەک ملیۆن');
-        expect(SoraniNumberConverter.convert(1000001), 'یەک ملیۆن و یەک');
+        expect(KurdishSoraniNumberConverter.convert(1000000), 'یەک ملیۆن');
+        expect(
+          KurdishSoraniNumberConverter.convert(1000001),
+          'یەک ملیۆن و یەک',
+        );
       });
 
       test('Boundary between millions and billions', () {
         expect(
-          SoraniNumberConverter.convert(999999999),
+          KurdishSoraniNumberConverter.convert(999999999),
           'نۆسەد و نەوەد و نۆ ملیۆن و نۆسەد و نەوەد و نۆ هەزار و نۆسەد و نەوەد و نۆ',
         );
-        expect(SoraniNumberConverter.convert(1000000000), 'یەک ملیار');
-        expect(SoraniNumberConverter.convert(1000000001), 'یەک ملیار و یەک');
+        expect(KurdishSoraniNumberConverter.convert(1000000000), 'یەک ملیار');
+        expect(
+          KurdishSoraniNumberConverter.convert(1000000001),
+          'یەک ملیار و یەک',
+        );
       });
 
       test('Boundary between billions and trillions', () {
         expect(
-          SoraniNumberConverter.convert(999999999999),
+          KurdishSoraniNumberConverter.convert(999999999999),
           'نۆسەد و نەوەد و نۆ ملیار و نۆسەد و نەوەد و نۆ ملیۆن و نۆسەد و نەوەد و نۆ هەزار و نۆسەد و نەوەد و نۆ',
         );
-        expect(SoraniNumberConverter.convert(1000000000000), 'یەک تریلیۆن');
         expect(
-          SoraniNumberConverter.convert(1000000000001),
-          'یەک تریلیۆن و یەک',
+          KurdishSoraniNumberConverter.convert(1000000000000),
+          'یەک ترلیۆن',
+        );
+        expect(
+          KurdishSoraniNumberConverter.convert(1000000000001),
+          'یەک ترلیۆن و یەک',
         );
       });
 
       test('Large negative numbers', () {
         expect(
-          SoraniNumberConverter.convert(-999999999),
+          KurdishSoraniNumberConverter.convert(-999999999),
           'سالب نۆسەد و نەوەد و نۆ ملیۆن و نۆسەد و نەوەد و نۆ هەزار و نۆسەد و نەوەد و نۆ',
         );
-        expect(SoraniNumberConverter.convert(-1000000000), 'سالب یەک ملیار');
+        expect(
+          KurdishSoraniNumberConverter.convert(-1000000000),
+          'سالب یەک ملیار',
+        );
       });
 
       test('Powers of 10', () {
-        expect(SoraniNumberConverter.convert(1), 'یەک');
-        expect(SoraniNumberConverter.convert(10), 'دە');
-        expect(SoraniNumberConverter.convert(100), 'سەد');
-        expect(SoraniNumberConverter.convert(1000), 'یەک هەزار');
-        expect(SoraniNumberConverter.convert(10000), 'دە هەزار');
-        expect(SoraniNumberConverter.convert(100000), 'سەد هەزار');
-        expect(SoraniNumberConverter.convert(1000000), 'یەک ملیۆن');
-        expect(SoraniNumberConverter.convert(10000000), 'دە ملیۆن');
-        expect(SoraniNumberConverter.convert(100000000), 'سەد ملیۆن');
-        expect(SoraniNumberConverter.convert(1000000000), 'یەک ملیار');
-        expect(SoraniNumberConverter.convert(10000000000), 'دە ملیار');
-        expect(SoraniNumberConverter.convert(100000000000), 'سەد ملیار');
-        expect(SoraniNumberConverter.convert(1000000000000), 'یەک تریلیۆن');
+        expect(KurdishSoraniNumberConverter.convert(1), 'یەک');
+        expect(KurdishSoraniNumberConverter.convert(10), 'دە');
+        expect(KurdishSoraniNumberConverter.convert(100), 'سەد');
+        expect(KurdishSoraniNumberConverter.convert(1000), 'یەک هەزار');
+        expect(KurdishSoraniNumberConverter.convert(10000), 'دە هەزار');
+        expect(KurdishSoraniNumberConverter.convert(100000), 'سەد هەزار');
+        expect(KurdishSoraniNumberConverter.convert(1000000), 'یەک ملیۆن');
+        expect(KurdishSoraniNumberConverter.convert(10000000), 'دە ملیۆن');
+        expect(KurdishSoraniNumberConverter.convert(100000000), 'سەد ملیۆن');
+        expect(KurdishSoraniNumberConverter.convert(1000000000), 'یەک ملیار');
+        expect(KurdishSoraniNumberConverter.convert(10000000000), 'دە ملیار');
+        expect(KurdishSoraniNumberConverter.convert(100000000000), 'سەد ملیار');
+        expect(
+          KurdishSoraniNumberConverter.convert(1000000000000),
+          'یەک ترلیۆن',
+        );
       });
 
       test('Repeating digits', () {
-        expect(SoraniNumberConverter.convert(11), 'یازدە');
-        expect(SoraniNumberConverter.convert(22), 'بیست و دوو');
-        expect(SoraniNumberConverter.convert(33), 'سی و سێ');
-        expect(SoraniNumberConverter.convert(44), 'چل و چوار');
-        expect(SoraniNumberConverter.convert(55), 'پەنجا و پێنج');
-        expect(SoraniNumberConverter.convert(66), 'شەست و شەش');
-        expect(SoraniNumberConverter.convert(77), 'حەفتا و حەوت');
-        expect(SoraniNumberConverter.convert(88), 'هەشتا و هەشت');
-        expect(SoraniNumberConverter.convert(99), 'نەوەد و نۆ');
-        expect(SoraniNumberConverter.convert(111), 'سەد و یازدە');
-        expect(SoraniNumberConverter.convert(222), 'دووسەد و بیست و دوو');
-        expect(SoraniNumberConverter.convert(333), 'سێسەد و سی و سێ');
-        expect(SoraniNumberConverter.convert(444), 'چوارسەد و چل و چوار');
-        expect(SoraniNumberConverter.convert(555), 'پێنسەد و پەنجا و پێنج');
-        expect(SoraniNumberConverter.convert(666), 'شەشسەد و شەست و شەش');
-        expect(SoraniNumberConverter.convert(777), 'حەوتسەد و حەفتا و حەوت');
-        expect(SoraniNumberConverter.convert(888), 'هەشتسەد و هەشتا و هەشت');
-        expect(SoraniNumberConverter.convert(999), 'نۆسەد و نەوەد و نۆ');
-        expect(SoraniNumberConverter.convert(1111), 'یەک هەزار و سەد و یازدە');
+        expect(KurdishSoraniNumberConverter.convert(11), 'یازدە');
+        expect(KurdishSoraniNumberConverter.convert(22), 'بیست و دوو');
+        expect(KurdishSoraniNumberConverter.convert(33), 'سی و سێ');
+        expect(KurdishSoraniNumberConverter.convert(44), 'چل و چوار');
+        expect(KurdishSoraniNumberConverter.convert(55), 'پەنجا و پێنج');
+        expect(KurdishSoraniNumberConverter.convert(66), 'شەست و شەش');
+        expect(KurdishSoraniNumberConverter.convert(77), 'حەفتا و حەوت');
+        expect(KurdishSoraniNumberConverter.convert(88), 'هەشتا و هەشت');
+        expect(KurdishSoraniNumberConverter.convert(99), 'نەوەد و نۆ');
+        expect(KurdishSoraniNumberConverter.convert(111), 'سەد و یازدە');
         expect(
-          SoraniNumberConverter.convert(2222),
+          KurdishSoraniNumberConverter.convert(222),
+          'دووسەد و بیست و دوو',
+        );
+        expect(KurdishSoraniNumberConverter.convert(333), 'سێسەد و سی و سێ');
+        expect(
+          KurdishSoraniNumberConverter.convert(444),
+          'چوارسەد و چل و چوار',
+        );
+        expect(
+          KurdishSoraniNumberConverter.convert(555),
+          'پێنسەد و پەنجا و پێنج',
+        );
+        expect(
+          KurdishSoraniNumberConverter.convert(666),
+          'شەشسەد و شەست و شەش',
+        );
+        expect(
+          KurdishSoraniNumberConverter.convert(777),
+          'حەوتسەد و حەفتا و حەوت',
+        );
+        expect(
+          KurdishSoraniNumberConverter.convert(888),
+          'هەشتسەد و هەشتا و هەشت',
+        );
+        expect(KurdishSoraniNumberConverter.convert(999), 'نۆسەد و نەوەد و نۆ');
+        expect(
+          KurdishSoraniNumberConverter.convert(1111),
+          'یەک هەزار و سەد و یازدە',
+        );
+        expect(
+          KurdishSoraniNumberConverter.convert(2222),
           'دوو هەزار و دووسەد و بیست و دوو',
         );
         expect(
-          SoraniNumberConverter.convert(3333),
+          KurdishSoraniNumberConverter.convert(3333),
           'سێ هەزار و سێسەد و سی و سێ',
         );
         expect(
-          SoraniNumberConverter.convert(4444),
+          KurdishSoraniNumberConverter.convert(4444),
           'چوار هەزار و چوارسەد و چل و چوار',
         );
         expect(
-          SoraniNumberConverter.convert(5555),
+          KurdishSoraniNumberConverter.convert(5555),
           'پێنج هەزار و پێنسەد و پەنجا و پێنج',
         );
         expect(
-          SoraniNumberConverter.convert(6666),
+          KurdishSoraniNumberConverter.convert(6666),
           'شەش هەزار و شەشسەد و شەست و شەش',
         );
         expect(
-          SoraniNumberConverter.convert(7777),
+          KurdishSoraniNumberConverter.convert(7777),
           'حەوت هەزار و حەوتسەد و حەفتا و حەوت',
         );
         expect(
-          SoraniNumberConverter.convert(8888),
+          KurdishSoraniNumberConverter.convert(8888),
           'هەشت هەزار و هەشتسەد و هەشتا و هەشت',
         );
         expect(
-          SoraniNumberConverter.convert(9999),
+          KurdishSoraniNumberConverter.convert(9999),
           'نۆ هەزار و نۆسەد و نەوەد و نۆ',
         );
       });
 
       test('Numbers with zeros in middle', () {
-        expect(SoraniNumberConverter.convert(101), 'سەد و یەک');
-        expect(SoraniNumberConverter.convert(1001), 'یەک هەزار و یەک');
-        expect(SoraniNumberConverter.convert(1010), 'یەک هەزار و دە');
-        expect(SoraniNumberConverter.convert(1100), 'یەک هەزار و سەد');
-        expect(SoraniNumberConverter.convert(10001), 'دە هەزار و یەک');
-        expect(SoraniNumberConverter.convert(10010), 'دە هەزار و دە');
-        expect(SoraniNumberConverter.convert(10100), 'دە هەزار و سەد');
-        expect(SoraniNumberConverter.convert(11000), 'یازدە هەزار');
-        expect(SoraniNumberConverter.convert(100001), 'سەد هەزار و یەک');
-        expect(SoraniNumberConverter.convert(100010), 'سەد هەزار و دە');
-        expect(SoraniNumberConverter.convert(100100), 'سەد هەزار و سەد');
-        expect(SoraniNumberConverter.convert(101000), 'سەد و یەک هەزار');
-        expect(SoraniNumberConverter.convert(110000), 'سەد و دە هەزار');
-        expect(SoraniNumberConverter.convert(1000001), 'یەک ملیۆن و یەک');
-        expect(SoraniNumberConverter.convert(1000010), 'یەک ملیۆن و دە');
-        expect(SoraniNumberConverter.convert(1000100), 'یەک ملیۆن و سەد');
-        expect(SoraniNumberConverter.convert(1001000), 'یەک ملیۆن و یەک هەزار');
-        expect(SoraniNumberConverter.convert(1010000), 'یەک ملیۆن و دە هەزار');
-        expect(SoraniNumberConverter.convert(1100000), 'یەک ملیۆن و سەد هەزار');
+        expect(KurdishSoraniNumberConverter.convert(101), 'سەد و یەک');
+        expect(KurdishSoraniNumberConverter.convert(1001), 'یەک هەزار و یەک');
+        expect(KurdishSoraniNumberConverter.convert(1010), 'یەک هەزار و دە');
+        expect(KurdishSoraniNumberConverter.convert(1100), 'یەک هەزار و سەد');
+        expect(KurdishSoraniNumberConverter.convert(10001), 'دە هەزار و یەک');
+        expect(KurdishSoraniNumberConverter.convert(10010), 'دە هەزار و دە');
+        expect(KurdishSoraniNumberConverter.convert(10100), 'دە هەزار و سەد');
+        expect(KurdishSoraniNumberConverter.convert(11000), 'یازدە هەزار');
+        expect(KurdishSoraniNumberConverter.convert(100001), 'سەد هەزار و یەک');
+        expect(KurdishSoraniNumberConverter.convert(100010), 'سەد هەزار و دە');
+        expect(KurdishSoraniNumberConverter.convert(100100), 'سەد هەزار و سەد');
+        expect(KurdishSoraniNumberConverter.convert(101000), 'سەد و یەک هەزار');
+        expect(KurdishSoraniNumberConverter.convert(110000), 'سەد و دە هەزار');
+        expect(
+          KurdishSoraniNumberConverter.convert(1000001),
+          'یەک ملیۆن و یەک',
+        );
+        expect(KurdishSoraniNumberConverter.convert(1000010), 'یەک ملیۆن و دە');
+        expect(
+          KurdishSoraniNumberConverter.convert(1000100),
+          'یەک ملیۆن و سەد',
+        );
+        expect(
+          KurdishSoraniNumberConverter.convert(1001000),
+          'یەک ملیۆن و یەک هەزار',
+        );
+        expect(
+          KurdishSoraniNumberConverter.convert(1010000),
+          'یەک ملیۆن و دە هەزار',
+        );
+        expect(
+          KurdishSoraniNumberConverter.convert(1100000),
+          'یەک ملیۆن و سەد هەزار',
+        );
       });
     });
 
     group('Special pattern numbers', () {
       test('Sequential numbers', () {
-        expect(SoraniNumberConverter.convert(123), 'سەد و بیست و سێ');
+        expect(KurdishSoraniNumberConverter.convert(123), 'سەد و بیست و سێ');
         expect(
-          SoraniNumberConverter.convert(1234),
+          KurdishSoraniNumberConverter.convert(1234),
           'یەک هەزار و دووسەد و سی و چوار',
         );
         expect(
-          SoraniNumberConverter.convert(12345),
+          KurdishSoraniNumberConverter.convert(12345),
           'دوازدە هەزار و سێسەد و چل و پێنج',
         );
         expect(
-          SoraniNumberConverter.convert(123456),
+          KurdishSoraniNumberConverter.convert(123456),
           'سەد و بیست و سێ هەزار و چوارسەد و پەنجا و شەش',
         );
         expect(
-          SoraniNumberConverter.convert(1234567),
+          KurdishSoraniNumberConverter.convert(1234567),
           'یەک ملیۆن و دووسەد و سی و چوار هەزار و پێنسەد و شەست و حەوت',
         );
         expect(
-          SoraniNumberConverter.convert(12345678),
+          KurdishSoraniNumberConverter.convert(12345678),
           'دوازدە ملیۆن و سێسەد و چل و پێنج هەزار و شەشسەد و حەفتا و هەشت',
         );
         expect(
-          SoraniNumberConverter.convert(123456789),
+          KurdishSoraniNumberConverter.convert(123456789),
           'سەد و بیست و سێ ملیۆن و چوارسەد و پەنجا و شەش هەزار و حەوتسەد و هەشتا و نۆ',
         );
       });
 
       test('Reverse sequential numbers', () {
-        expect(SoraniNumberConverter.convert(321), 'سێسەد و بیست و یەک');
+        expect(KurdishSoraniNumberConverter.convert(321), 'سێسەد و بیست و یەک');
         expect(
-          SoraniNumberConverter.convert(4321),
+          KurdishSoraniNumberConverter.convert(4321),
           'چوار هەزار و سێسەد و بیست و یەک',
         );
         expect(
-          SoraniNumberConverter.convert(54321),
+          KurdishSoraniNumberConverter.convert(54321),
           'پەنجا و چوار هەزار و سێسەد و بیست و یەک',
         );
         expect(
-          SoraniNumberConverter.convert(654321),
+          KurdishSoraniNumberConverter.convert(654321),
           'شەشسەد و پەنجا و چوار هەزار و سێسەد و بیست و یەک',
         );
         expect(
-          SoraniNumberConverter.convert(7654321),
+          KurdishSoraniNumberConverter.convert(7654321),
           'حەوت ملیۆن و شەشسەد و پەنجا و چوار هەزار و سێسەد و بیست و یەک',
         );
         expect(
-          SoraniNumberConverter.convert(87654321),
+          KurdishSoraniNumberConverter.convert(87654321),
           'هەشتا و حەوت ملیۆن و شەشسەد و پەنجا و چوار هەزار و سێسەد و بیست و یەک',
         );
         expect(
-          SoraniNumberConverter.convert(987654321),
+          KurdishSoraniNumberConverter.convert(987654321),
           'نۆسەد و هەشتا و حەوت ملیۆن و شەشسەد و پەنجا و چوار هەزار و سێسەد و بیست و یەک',
         );
       });
 
       test('Palindromic numbers', () {
-        expect(SoraniNumberConverter.convert(121), 'سەد و بیست و یەک');
-        expect(SoraniNumberConverter.convert(131), 'سەد و سی و یەک');
-        expect(SoraniNumberConverter.convert(141), 'سەد و چل و یەک');
-        expect(SoraniNumberConverter.convert(151), 'سەد و پەنجا و یەک');
-        expect(SoraniNumberConverter.convert(161), 'سەد و شەست و یەک');
-        expect(SoraniNumberConverter.convert(171), 'سەد و حەفتا و یەک');
-        expect(SoraniNumberConverter.convert(181), 'سەد و هەشتا و یەک');
-        expect(SoraniNumberConverter.convert(191), 'سەد و نەوەد و یەک');
+        expect(KurdishSoraniNumberConverter.convert(121), 'سەد و بیست و یەک');
+        expect(KurdishSoraniNumberConverter.convert(131), 'سەد و سی و یەک');
+        expect(KurdishSoraniNumberConverter.convert(141), 'سەد و چل و یەک');
+        expect(KurdishSoraniNumberConverter.convert(151), 'سەد و پەنجا و یەک');
+        expect(KurdishSoraniNumberConverter.convert(161), 'سەد و شەست و یەک');
+        expect(KurdishSoraniNumberConverter.convert(171), 'سەد و حەفتا و یەک');
+        expect(KurdishSoraniNumberConverter.convert(181), 'سەد و هەشتا و یەک');
+        expect(KurdishSoraniNumberConverter.convert(191), 'سەد و نەوەد و یەک');
         expect(
-          SoraniNumberConverter.convert(1221),
+          KurdishSoraniNumberConverter.convert(1221),
           'یەک هەزار و دووسەد و بیست و یەک',
         );
         expect(
-          SoraniNumberConverter.convert(1331),
+          KurdishSoraniNumberConverter.convert(1331),
           'یەک هەزار و سێسەد و سی و یەک',
         );
         expect(
-          SoraniNumberConverter.convert(12321),
+          KurdishSoraniNumberConverter.convert(12321),
           'دوازدە هەزار و سێسەد و بیست و یەک',
         );
         expect(
-          SoraniNumberConverter.convert(123321),
+          KurdishSoraniNumberConverter.convert(123321),
           'سەد و بیست و سێ هەزار و سێسەد و بیست و یەک',
         );
       });
 
       test('Numbers ending in zeros', () {
-        expect(SoraniNumberConverter.convert(10), 'دە');
-        expect(SoraniNumberConverter.convert(20), 'بیست');
-        expect(SoraniNumberConverter.convert(30), 'سی');
-        expect(SoraniNumberConverter.convert(100), 'سەد');
-        expect(SoraniNumberConverter.convert(200), 'دووسەد');
-        expect(SoraniNumberConverter.convert(300), 'سێسەد');
-        expect(SoraniNumberConverter.convert(1000), 'یەک هەزار');
-        expect(SoraniNumberConverter.convert(2000), 'دوو هەزار');
-        expect(SoraniNumberConverter.convert(3000), 'سێ هەزار');
-        expect(SoraniNumberConverter.convert(10000), 'دە هەزار');
-        expect(SoraniNumberConverter.convert(20000), 'بیست هەزار');
-        expect(SoraniNumberConverter.convert(30000), 'سی هەزار');
-        expect(SoraniNumberConverter.convert(100000), 'سەد هەزار');
-        expect(SoraniNumberConverter.convert(200000), 'دووسەد هەزار');
-        expect(SoraniNumberConverter.convert(300000), 'سێسەد هەزار');
+        expect(KurdishSoraniNumberConverter.convert(10), 'دە');
+        expect(KurdishSoraniNumberConverter.convert(20), 'بیست');
+        expect(KurdishSoraniNumberConverter.convert(30), 'سی');
+        expect(KurdishSoraniNumberConverter.convert(100), 'سەد');
+        expect(KurdishSoraniNumberConverter.convert(200), 'دووسەد');
+        expect(KurdishSoraniNumberConverter.convert(300), 'سێسەد');
+        expect(KurdishSoraniNumberConverter.convert(1000), 'یەک هەزار');
+        expect(KurdishSoraniNumberConverter.convert(2000), 'دوو هەزار');
+        expect(KurdishSoraniNumberConverter.convert(3000), 'سێ هەزار');
+        expect(KurdishSoraniNumberConverter.convert(10000), 'دە هەزار');
+        expect(KurdishSoraniNumberConverter.convert(20000), 'بیست هەزار');
+        expect(KurdishSoraniNumberConverter.convert(30000), 'سی هەزار');
+        expect(KurdishSoraniNumberConverter.convert(100000), 'سەد هەزار');
+        expect(KurdishSoraniNumberConverter.convert(200000), 'دووسەد هەزار');
+        expect(KurdishSoraniNumberConverter.convert(300000), 'سێسەد هەزار');
       });
     });
 
     group('Mathematical constants and common numbers', () {
       test('Common mathematical numbers', () {
-        expect(SoraniNumberConverter.convert(12), 'دوازدە');
-        expect(SoraniNumberConverter.convert(24), 'بیست و چوار');
-        expect(SoraniNumberConverter.convert(60), 'شەست');
-        expect(SoraniNumberConverter.convert(360), 'سێسەد و شەست');
-        expect(SoraniNumberConverter.convert(365), 'سێسەد و شەست و پێنج');
-        expect(SoraniNumberConverter.convert(366), 'سێسەد و شەست و شەش');
+        expect(KurdishSoraniNumberConverter.convert(12), 'دوازدە');
+        expect(KurdishSoraniNumberConverter.convert(24), 'بیست و چوار');
+        expect(KurdishSoraniNumberConverter.convert(60), 'شەست');
+        expect(KurdishSoraniNumberConverter.convert(360), 'سێسەد و شەست');
+        expect(
+          KurdishSoraniNumberConverter.convert(365),
+          'سێسەد و شەست و پێنج',
+        );
+        expect(KurdishSoraniNumberConverter.convert(366), 'سێسەد و شەست و شەش');
       });
 
       test('Binary powers', () {
-        expect(SoraniNumberConverter.convert(2), 'دوو');
-        expect(SoraniNumberConverter.convert(4), 'چوار');
-        expect(SoraniNumberConverter.convert(8), 'هەشت');
-        expect(SoraniNumberConverter.convert(16), 'شازدە');
-        expect(SoraniNumberConverter.convert(32), 'سی و دوو');
-        expect(SoraniNumberConverter.convert(64), 'شەست و چوار');
-        expect(SoraniNumberConverter.convert(128), 'سەد و بیست و هەشت');
-        expect(SoraniNumberConverter.convert(256), 'دووسەد و پەنجا و شەش');
-        expect(SoraniNumberConverter.convert(512), 'پێنسەد و دوازدە');
-        expect(SoraniNumberConverter.convert(1024), 'یەک هەزار و بیست و چوار');
-        expect(SoraniNumberConverter.convert(2048), 'دوو هەزار و چل و هەشت');
-        expect(SoraniNumberConverter.convert(4096), 'چوار هەزار و نەوەد و شەش');
+        expect(KurdishSoraniNumberConverter.convert(2), 'دوو');
+        expect(KurdishSoraniNumberConverter.convert(4), 'چوار');
+        expect(KurdishSoraniNumberConverter.convert(8), 'هەشت');
+        expect(KurdishSoraniNumberConverter.convert(16), 'شازدە');
+        expect(KurdishSoraniNumberConverter.convert(32), 'سی و دوو');
+        expect(KurdishSoraniNumberConverter.convert(64), 'شەست و چوار');
+        expect(KurdishSoraniNumberConverter.convert(128), 'سەد و بیست و هەشت');
+        expect(
+          KurdishSoraniNumberConverter.convert(256),
+          'دووسەد و پەنجا و شەش',
+        );
+        expect(KurdishSoraniNumberConverter.convert(512), 'پێنسەد و دوازدە');
+        expect(
+          KurdishSoraniNumberConverter.convert(1024),
+          'یەک هەزار و بیست و چوار',
+        );
+        expect(
+          KurdishSoraniNumberConverter.convert(2048),
+          'دوو هەزار و چل و هەشت',
+        );
+        expect(
+          KurdishSoraniNumberConverter.convert(4096),
+          'چوار هەزار و نەوەد و شەش',
+        );
       });
 
       test('Century numbers', () {
-        expect(SoraniNumberConverter.convert(1800), 'یەک هەزار و هەشتسەد');
-        expect(SoraniNumberConverter.convert(1900), 'یەک هەزار و نۆسەد');
-        expect(SoraniNumberConverter.convert(2000), 'دوو هەزار');
-        expect(SoraniNumberConverter.convert(2001), 'دوو هەزار و یەک');
-        expect(SoraniNumberConverter.convert(2010), 'دوو هەزار و دە');
-        expect(SoraniNumberConverter.convert(2020), 'دوو هەزار و بیست');
-        expect(SoraniNumberConverter.convert(2021), 'دوو هەزار و بیست و یەک');
-        expect(SoraniNumberConverter.convert(2022), 'دوو هەزار و بیست و دوو');
-        expect(SoraniNumberConverter.convert(2023), 'دوو هەزار و بیست و سێ');
-        expect(SoraniNumberConverter.convert(2024), 'دوو هەزار و بیست و چوار');
-        expect(SoraniNumberConverter.convert(2025), 'دوو هەزار و بیست و پێنج');
+        expect(
+          KurdishSoraniNumberConverter.convert(1800),
+          'یەک هەزار و هەشتسەد',
+        );
+        expect(KurdishSoraniNumberConverter.convert(1900), 'یەک هەزار و نۆسەد');
+        expect(KurdishSoraniNumberConverter.convert(2000), 'دوو هەزار');
+        expect(KurdishSoraniNumberConverter.convert(2001), 'دوو هەزار و یەک');
+        expect(KurdishSoraniNumberConverter.convert(2010), 'دوو هەزار و دە');
+        expect(KurdishSoraniNumberConverter.convert(2020), 'دوو هەزار و بیست');
+        expect(
+          KurdishSoraniNumberConverter.convert(2021),
+          'دوو هەزار و بیست و یەک',
+        );
+        expect(
+          KurdishSoraniNumberConverter.convert(2022),
+          'دوو هەزار و بیست و دوو',
+        );
+        expect(
+          KurdishSoraniNumberConverter.convert(2023),
+          'دوو هەزار و بیست و سێ',
+        );
+        expect(
+          KurdishSoraniNumberConverter.convert(2024),
+          'دوو هەزار و بیست و چوار',
+        );
+        expect(
+          KurdishSoraniNumberConverter.convert(2025),
+          'دوو هەزار و بیست و پێنج',
+        );
       });
     });
 
@@ -768,7 +852,7 @@ void main() {
         ];
 
         for (int number in testNumbers) {
-          final result = SoraniNumberConverter.convert(number);
+          final result = KurdishSoraniNumberConverter.convert(number);
           expect(result, isNotEmpty);
           expect(result, isA<String>());
         }
@@ -776,11 +860,11 @@ void main() {
 
       test('Very large numbers close to limits', () {
         expect(
-          SoraniNumberConverter.convert(9223372036854775807),
+          KurdishSoraniNumberConverter.convert(9223372036854775807),
           isA<String>(),
         );
         expect(
-          SoraniNumberConverter.convert(-9223372036854775808),
+          KurdishSoraniNumberConverter.convert(-9223372036854775808),
           isA<String>(),
         );
       });
