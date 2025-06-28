@@ -1,19 +1,23 @@
-# sorani_number_words
+# Kurdish Number Converter
 
-A Flutter package to convert numbers to Kurdish Sorani words.
+A Flutter package that converts Western Arabic numerals (0–9) into Kurdish script numerals (٠–٩).  
+Ideal for apps that need to display numbers in Kurdish language or localize numeric data.
+
+---
 
 ## Features
 
-- Convert numbers (0-999,999,999) to Kurdish Sorani words
-- Supports positive and negative numbers
+- Convert numbers to Kurdish digits easily
+- Supports integer and string inputs
+- Lightweight and easy to integrate in any Flutter project
 
-## Usage
+---
 
 ```dart
-import 'package:sorani_number_words/sorani_number_words.dart';
+import 'package:kurdish_number_converter/kurdish_number_converter.dart';
 
 void main() {
-  print(SoraniNumberConverter.convert(123)); // سەد و بیست و سێ
-  print(SoraniNumberConverter.convert(4567)); // چوار هەزار و پێنسەد و شەست و حەوت
+  print(KurdishSoraniNumberConverter.convert(123)); // سەد و بیست و سێ
+  print(KurdishSoraniNumberConverter.convert(4567)); // چوار هەزار و پێنسەد و شەست و حەوت
 }
 ```
