@@ -110,14 +110,22 @@ class SoraniNumberConverter {
     final wholePart = number ~/ divisor;
     final remainder = number % divisor;
 
-    String result = '${convert(wholePart)} $denomination';
+    String wholePartStr;
+
+    // Special handling for numbers 11-19 in higher magnitudes
+    if (wholePart >= 11 && wholePart <= 19) {
+      wholePartStr = _teens[wholePart]!;
+    } else {
+      wholePartStr = convert(wholePart);
+    }
+
+    String result = '$wholePartStr $denomination';
     if (remainder > 0) {
       result = '$result و ${convert(remainder)}';
     }
     return result;
   }
 
-  // Helper method to convert numbers with proper spacing and conjunctions
   static String _joinParts(String part1, String part2) {
     if (part1.isEmpty) return part2;
     if (part2.isEmpty) return part1;
