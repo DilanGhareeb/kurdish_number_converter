@@ -1,3 +1,6 @@
+library;
+
+/// A utility class for converting numbers into Kurdish Sorani words.
 class KurdishSoraniNumberConverter {
   // Supported maximum value (2^63-1)
   static const int maxSupportedValue = 9223372036854775807;
@@ -61,6 +64,12 @@ class KurdishSoraniNumberConverter {
     1000000000000000000: 'کوینتیلیۆن',
   };
 
+  /// Converts an [int] or [String] number into Kurdish Sorani words.
+  ///
+  /// Example:
+  /// ```dart
+  /// KurdishSoraniNumberConverter.convert(123); // => سەد و بیست و سێ
+  /// ```
   static String convert(int number) {
     // Handle numbers beyond supported range
     if (number > maxSupportedValue || number < -maxSupportedValue) {

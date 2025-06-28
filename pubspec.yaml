@@ -1,5 +1,5 @@
 name: kurdish_number_converter
-description: A complete number-to-words converter for Kurdish Sorani (Central Kurdish) language. Converts numbers up to 9 quintillion (9,223,372,036,854,775,807) with proper Sorani grammar and formatting.
+description: A Flutter package to convert numbers into Kurdish Sorani words for localization.
 version: 1.0.0
 homepage: https://github.com/DilanGhareeb/kurdish_number_converter
 repository: https://github.com/DilanGhareeb/kurdish_number_converter
