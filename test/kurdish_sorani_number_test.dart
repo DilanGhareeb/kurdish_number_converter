@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:kurdish_sorani_number_converter/src/kurdish_nu.dart';
+import 'package:kurdish_number_converter/kurdish_number_converter.dart';
 
 void main() {
   group('KurdishSoraniNumberConverter', () {
