@@ -1,5 +1,5 @@
-## 1.0.0
+## 1.0.1
 
-- Initial release of Kurdish Number Converter
-- Converts integers to Kurdish Sorani number words
-- Supports string and integer input
+- Minor improvements
+- Added documentation comments for public API
+- Fixed pubspec description and LICENSE issues
