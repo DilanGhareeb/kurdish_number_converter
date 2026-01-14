@@ -1,7 +1,7 @@
 library;
 
 /// A utility class for converting numbers into Kurdish Sorani words.
-class KurdishSoraniNumberConverter {
+class KurdishSoraniNumberConverter<T> {
   // Supported maximum value (2^63-1)
   static const int maxSupportedValue = 9223372036854775807;
 
@@ -64,26 +64,36 @@ class KurdishSoraniNumberConverter {
     1000000000000000000: 'کوینتیلیۆن',
   };
 
-  /// Converts an [int] or [String] number into Kurdish Sorani words.
+  /// Converts an [num] or [String] number into Kurdish Sorani words.
   ///
   /// Example:
   /// ```dart
   /// KurdishSoraniNumberConverter.convert(123); // => سەد و بیست و سێ
   /// ```
-  static String convert(int number) {
+  static String convert<T extends num>(T number) {
+    num numValue = number;
+
     // Handle numbers beyond supported range
-    if (number > maxSupportedValue || number < -maxSupportedValue) {
+    if (numValue > maxSupportedValue || numValue < -maxSupportedValue) {
       return 'ژمارە زۆر گەورەە و ناتوانرێت بگۆڕدرێت';
     }
+    // Convert to int for processing (assuming you're working with integers)
+    int intValue = numValue.round();
 
-    if (number < 0) return 'سالب ${convert(-number)}';
-    if (number < 10) return _units[number]!;
-    if (_teens.containsKey(number)) return _teens[number]!;
-    if (number < 100) return _convertTens(number);
-    if (number < 1000) return _convertHundreds(number);
+    if (intValue == 0) return _units[0]!;
 
-    final scale = _findLargestScale(number);
-    return _convertComposite(number, scale, _scales[scale]!);
+    // Handle negative numbers
+    if (numValue < 0) {
+      return 'سالب ${convert(-numValue)}';
+    }
+
+    if (intValue < 10) return _units[intValue]!;
+    if (_teens.containsKey(intValue)) return _teens[intValue]!;
+    if (intValue < 100) return _convertTens(intValue);
+    if (intValue < 1000) return _convertHundreds(intValue);
+
+    final scale = _findLargestScale(intValue);
+    return _convertComposite(intValue, scale, _scales[scale]!);
   }
 
   static int _findLargestScale(int number) {

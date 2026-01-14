@@ -1,3 +1,6 @@
-## 1.0.2
+## 1.0.3
 
-- Updating the README.md file.
+- Updated README.md
+- Improved type safety with generic constraint `<T extends num>`
+- Fixed spacing in hundreds (دوو سەد)
+- Fixed negative zero edge case

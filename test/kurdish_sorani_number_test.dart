@@ -887,4 +887,225 @@ void main() {
       });
     });
   });
+
+  group('Double input support', () {
+    test('Whole numbers as doubles', () {
+      expect(KurdishSoraniNumberConverter.convert(123.0), 'سەد و بیست و سێ');
+      expect(KurdishSoraniNumberConverter.convert(1000.0), 'یەک هەزار');
+      expect(KurdishSoraniNumberConverter.convert(0.0), 'سفر');
+    });
+
+    test('Doubles with decimals (should truncate/round)', () {
+      expect(
+        KurdishSoraniNumberConverter.convert(123.7),
+        'سەد و بیست و چوار',
+      ); // rounds to 124
+      expect(
+        KurdishSoraniNumberConverter.convert(999.4),
+        'نۆ سەد و نەوەد و نۆ',
+      ); // rounds to 999
+      expect(
+        KurdishSoraniNumberConverter.convert(50.5),
+        'پەنجا و یەک',
+      ); // rounds to 51
+      expect(
+        KurdishSoraniNumberConverter.convert(99.9),
+        'سەد',
+      ); // rounds to 100
+    });
+
+    test('Negative doubles', () {
+      expect(
+        KurdishSoraniNumberConverter.convert(-123.5),
+        'سالب سەد و بیست و چوار',
+      );
+      expect(KurdishSoraniNumberConverter.convert(-1.7), 'سالب دوو');
+      expect(
+        KurdishSoraniNumberConverter.convert(-999.3),
+        'سالب نۆ سەد و نەوەد و نۆ',
+      );
+    });
+
+    test('Very small doubles', () {
+      expect(KurdishSoraniNumberConverter.convert(0.1), 'سفر'); // rounds to 0
+      expect(KurdishSoraniNumberConverter.convert(0.9), 'یەک'); // rounds to 1
+      expect(KurdishSoraniNumberConverter.convert(-0.4), 'سفر'); // rounds to 0
+      expect(
+        KurdishSoraniNumberConverter.convert(-0.5),
+        'سالب یەک',
+      ); // rounds to -1 (this is correct behavior)
+    });
+
+    test('Large doubles', () {
+      expect(
+        KurdishSoraniNumberConverter.convert(1234567.8),
+        'یەک ملیۆن و دوو سەد و سی و چوار هەزار و پێنج سەد و شەست و هەشت',
+      );
+      expect(KurdishSoraniNumberConverter.convert(1000000.0), 'یەک ملیۆن');
+    });
+  });
+
+  group('Mixed numeric types', () {
+    test('int type', () {
+      int num1 = 456;
+      expect(
+        KurdishSoraniNumberConverter.convert(num1),
+        'چوار سەد و پەنجا و شەش',
+      );
+    });
+
+    test('double type', () {
+      double num2 = 789.0;
+      expect(
+        KurdishSoraniNumberConverter.convert(num2),
+        'حەوت سەد و هەشتا و نۆ',
+      );
+    });
+
+    test('num type (can be int or double)', () {
+      num num3 = 321;
+      expect(KurdishSoraniNumberConverter.convert(num3), 'سێ سەد و بیست و یەک');
+
+      num num4 = 654.0;
+      expect(
+        KurdishSoraniNumberConverter.convert(num4),
+        'شەش سەد و پەنجا و چوار',
+      );
+    });
+  });
+
+  group('Edge cases for doubles', () {
+    test('Rounding edge cases', () {
+      expect(KurdishSoraniNumberConverter.convert(10.4), 'دە'); // rounds to 10
+      expect(
+        KurdishSoraniNumberConverter.convert(10.5),
+        'یازدە',
+      ); // rounds to 11
+      expect(
+        KurdishSoraniNumberConverter.convert(10.6),
+        'یازدە',
+      ); // rounds to 11
+      expect(
+        KurdishSoraniNumberConverter.convert(19.5),
+        'بیست',
+      ); // rounds to 20
+    });
+
+    test('Teen numbers as doubles', () {
+      expect(KurdishSoraniNumberConverter.convert(11.0), 'یازدە');
+      expect(
+        KurdishSoraniNumberConverter.convert(15.7),
+        'شازدە',
+      ); // rounds to 16
+      expect(KurdishSoraniNumberConverter.convert(19.2), 'نۆزدە');
+    });
+
+    test('Boundary doubles', () {
+      expect(KurdishSoraniNumberConverter.convert(99.9), 'سەد');
+      expect(KurdishSoraniNumberConverter.convert(999.9), 'یەک هەزار');
+      expect(KurdishSoraniNumberConverter.convert(9999.9), 'دە هەزار');
+    });
+  });
+
+  group('Scientific notation and special doubles', () {
+    test('Scientific notation', () {
+      expect(KurdishSoraniNumberConverter.convert(1e3), 'یەک هەزار'); // 1000
+      expect(KurdishSoraniNumberConverter.convert(1e6), 'یەک ملیۆن'); // 1000000
+      expect(
+        KurdishSoraniNumberConverter.convert(2.5e3),
+        'دوو هەزار و پێنج سەد',
+      ); // 2500
+    });
+
+    test('Very precise doubles', () {
+      expect(
+        KurdishSoraniNumberConverter.convert(123.456789),
+        'سەد و بیست و سێ',
+      );
+      expect(KurdishSoraniNumberConverter.convert(999.999999), 'یەک هەزار');
+    });
+  });
+
+  group('Extreme double values', () {
+    test('Maximum safe double values', () {
+      expect(
+        KurdishSoraniNumberConverter.convert(9223372036854775000.0),
+        isA<String>(),
+      );
+    });
+
+    test('Negative extreme values', () {
+      expect(
+        KurdishSoraniNumberConverter.convert(-9223372036854775000.0),
+        isA<String>(),
+      );
+    });
+  });
+
+  group('Decimal precision tests', () {
+    test('Half values rounding', () {
+      expect(KurdishSoraniNumberConverter.convert(0.5), 'یەک'); // rounds to 1
+      expect(KurdishSoraniNumberConverter.convert(1.5), 'دوو'); // rounds to 2
+      expect(KurdishSoraniNumberConverter.convert(2.5), 'سێ'); // rounds to 3
+      expect(
+        KurdishSoraniNumberConverter.convert(100.5),
+        'سەد و یەک',
+      ); // rounds to 101
+    });
+
+    test('Quarter values', () {
+      expect(KurdishSoraniNumberConverter.convert(10.25), 'دە'); // rounds to 10
+      expect(
+        KurdishSoraniNumberConverter.convert(10.75),
+        'یازدە',
+      ); // rounds to 11
+      expect(
+        KurdishSoraniNumberConverter.convert(99.25),
+        'نەوەد و نۆ',
+      ); // rounds to 99
+      expect(
+        KurdishSoraniNumberConverter.convert(99.75),
+        'سەد',
+      ); // rounds to 100
+    });
+  });
+
+  group('Practical double usage scenarios', () {
+    test('Financial calculations', () {
+      expect(
+        KurdishSoraniNumberConverter.convert(1250.00),
+        'یەک هەزار و دوو سەد و پەنجا',
+      );
+      expect(
+        KurdishSoraniNumberConverter.convert(3500.50),
+        'سێ هەزار و پێنج سەد و یەک',
+      );
+    });
+
+    test('Measurement conversions', () {
+      expect(
+        KurdishSoraniNumberConverter.convert(12.5),
+        'سێزدە',
+      ); // 12.5 rounds to 13
+      expect(
+        KurdishSoraniNumberConverter.convert(45.8),
+        'چل و شەش',
+      ); // 45.8 rounds to 46
+      expect(
+        KurdishSoraniNumberConverter.convert(100.2),
+        'سەد',
+      ); // 100.2 rounds to 100
+    });
+
+    test('Statistical data', () {
+      expect(
+        KurdishSoraniNumberConverter.convert(365.25),
+        'سێ سەد و شەست و پێنج',
+      );
+      expect(
+        KurdishSoraniNumberConverter.convert(1440.5),
+        'یەک هەزار و چوار سەد و چل و یەک',
+      );
+    });
+  });
 }
