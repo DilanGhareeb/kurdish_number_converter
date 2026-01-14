@@ -19,6 +19,6 @@ import 'package:kurdish_number_converter/kurdish_number_converter.dart';
 
 void main() {
   print(KurdishSoraniNumberConverter.convert(123)); // سەد و بیست و سێ
-  print(KurdishSoraniNumberConverter.convert(4567)); // چوار هەزار و پێنسەد و شەست و حەوت
+  print(KurdishSoraniNumberConverter.convert(4567)); // چوار هەزار و پێنج سەد و شەست و حەوت
 }
 ```
